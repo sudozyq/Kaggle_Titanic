@@ -591,10 +591,10 @@ completing_age(test)
 print("Train age missing value: " + str((train.Age.isnull().sum()/len(train))*100)+str("%"))
 print("Test age missing value: " + str((test.Age.isnull().sum()/len(test))*100)+str("%"))
 
-# 年龄柱状图
-plt.subplots(figsize=(22, 10),)
-sns.distplot(train.Age, bins=100, kde=True, rug=False, norm_hist=False)
-plt.show()
+# # 年龄柱状图
+# plt.subplots(figsize=(22, 10),)
+# sns.distplot(train.Age, bins=100, kde=True, rug=False, norm_hist=False)
+# plt.show()
 
 # 年龄分组来创建新特性
 def age_group_fun(age):
@@ -634,3 +634,31 @@ test.drop('Age', axis=1, inplace=True)"""
 #                建模开始                  #
 ##########################################
 # 分离自变量因变量
+X = train.drop(['Survived'], axis=1)
+y = train["Survived"]
+
+# 拆分训练数据
+from sklearn.model_selection import train_test_split
+train_x, test_x, train_y, test_y = train_test_split(X, y, test_size=.33, random_state=0)
+
+# 特征缩放
+# print(train.sample())
+
+# 准备工作
+headers = train_x.columns
+print(train_x.head())
+
+# 特征缩放开始
+# 使用标准转换器
+from sklearn.preprocessing import StandardScaler
+sc = StandardScaler()
+
+# 转换x
+train_x = sc.fit_transform(train_x)
+# 转换"test_x"变量
+test_x = sc.transform(test_x)
+# 转换测试集
+test = sc.transform(test)
+
+# # 转换之后
+# print(pd.DataFrame(train_x, columns=headers).head())
