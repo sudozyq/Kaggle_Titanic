@@ -586,8 +586,8 @@ def completing_age(df):
 print("Train age missing value: " + str((train.Age.isnull().sum()/len(train))*100)+str("%"))
 print("Test age missing value: " + str((test.Age.isnull().sum()/len(test))*100)+str("%"))
 # 在train和test数据集中实现completion_age函数
-completing_age(train)
-completing_age(test)
+train = completing_age(train)
+test = completing_age(test)
 print("Train age missing value: " + str((train.Age.isnull().sum()/len(train))*100)+str("%"))
 print("Test age missing value: " + str((test.Age.isnull().sum()/len(test))*100)+str("%"))
 
@@ -596,36 +596,36 @@ print("Test age missing value: " + str((test.Age.isnull().sum()/len(test))*100)+
 # sns.distplot(train.Age, bins=100, kde=True, rug=False, norm_hist=False)
 # plt.show()
 
-# 年龄分组来创建新特性
-def age_group_fun(age):
-    a = ''
-    if age <= 1:
-        a = 'infant'
-    elif age <= 4:
-        a = 'toddler'
-    elif age <= 13:
-        a = 'child'
-    elif age <= 18:
-        a = 'teenager'
-    elif age <= 35:
-        a = 'Young_Adult'
-    elif age <= 45:
-        a = 'adult'
-    elif age <= 55:
-        a = 'middle_aged'
-    elif age <= 65:
-        a = 'senior_citizen'
-    else:
-        a = 'old'
-    return a
+# # 年龄分组来创建新特性
+# def age_group_fun(age):
+#     a = ''
+#     if age <= 1:
+#         a = 'infant'
+#     elif age <= 4:
+#         a = 'toddler'
+#     elif age <= 13:
+#         a = 'child'
+#     elif age <= 18:
+#         a = 'teenager'
+#     elif age <= 35:
+#         a = 'Young_Adult'
+#     elif age <= 45:
+#         a = 'adult'
+#     elif age <= 55:
+#         a = 'middle_aged'
+#     elif age <= 65:
+#         a = 'senior_citizen'
+#     else:
+#         a = 'old'
+#     return a
 
 
-train['age_group'] = train['Age'].map(age_group_fun)
-test['age_group'] = test['Age'].map(age_group_fun)
+# train['age_group'] = train['Age'].map(age_group_fun)
+# test['age_group'] = test['Age'].map(age_group_fun)
 
-# 创建age_group特征的虚拟变量
-train = pd.get_dummies(train, columns=['age_group'], drop_first=True)
-test = pd.get_dummies(test, columns=['age_group'], drop_first=True)
+# # 创建age_group特征的虚拟变量
+# train = pd.get_dummies(train, columns=['age_group'], drop_first=True)
+# test = pd.get_dummies(test, columns=['age_group'], drop_first=True)
 
 """train.drop('Age', axis=1, inplace=True)
 test.drop('Age', axis=1, inplace=True)"""
@@ -645,8 +645,8 @@ train_x, test_x, train_y, test_y = train_test_split(X, y, test_size=.33, random_
 # print(train.sample())
 
 # 准备工作
-headers = train_x.columns
-print(train_x.head())
+# headers = train_x.columns
+# print(train_x.head())
 
 # 特征缩放开始
 # 使用标准转换器
