@@ -645,20 +645,29 @@ train_x, test_x, train_y, test_y = train_test_split(X, y, test_size=.33, random_
 # print(train.sample())
 
 # 准备工作
-# headers = train_x.columns
-# print(train_x.head())
+headers = train_x.columns
+print(train_x.head())
 
 # 特征缩放开始
 # 使用标准转换器
-from sklearn.preprocessing import StandardScaler
-sc = StandardScaler()
-
-# 转换x
-train_x = sc.fit_transform(train_x)
-# 转换"test_x"变量
-test_x = sc.transform(test_x)
-# 转换测试集
-test = sc.transform(test)
-
+# from sklearn.preprocessing import StandardScaler
+# sc = StandardScaler()
+#
+# # 转换x
+# train_x = sc.fit_transform(train_x)
+# # 转换"test_x"变量
+# test_x = sc.transform(test_x)
+# # 转换测试集
+# test = sc.transform(test)
+#
 # # 转换之后
 # print(pd.DataFrame(train_x, columns=headers).head())
+
+train.calculated_fare = train.calculated_fare.astype(float)
+
+plt.subplots(figsize = (12,10))
+plt.scatter(train.Age, train.Survived)
+plt.xlabel("Age")
+plt.ylabel('Survival Status')
+
+plt.show()
